@@ -86,6 +86,8 @@ PINVOKE_API PHYSICS_OID* PhysicsTrigger_GetActors(PHYSICS_OID oid, int& count)
 	if (trigger == nullptr) return nullptr;
 
 	auto objects = trigger->GetActors();
+	if (objects.size() == 0) return nullptr;
+
 	for (auto i = 0; i < objects.size(); i++)
 	{
 		if (i >= retval.size())
@@ -301,6 +303,8 @@ PINVOKE_API PHYSICS_OID* PhysicsApi_Overlap(PHYSICS_OID oid, unsigned int filter
 	if (_shape == nullptr) return nullptr;
 
 	auto objects = physics->Overlap(filter, _shape, position, rotation);
+	if (objects.size() == 0) return nullptr;
+
 	for (auto i = 0; i < objects.size(); i++)
 	{
 		if (i >= retval.size())
@@ -331,6 +335,8 @@ PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, unsigned int filter, 
 	if (_shape == nullptr) return nullptr;
 
 	auto objects = physics->Sweep(filter, _shape, position, rotation);
+	if (objects.size() == 0) return nullptr;
+
 	for (auto i = 0; i < objects.size(); i++)
 	{
 		if (i >= retval.size())
