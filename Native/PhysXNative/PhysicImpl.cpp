@@ -56,29 +56,29 @@ std::vector<IPhysicsActor*> PhysicsTrigger::GetActors()
 	return std::vector<IPhysicsActor*>();
 }
 
-IPhysicsShape* PhysicsApi::CreateBoxShape(Vector3 enxtents, Vector3 scaling)
+IPhysicsShape* PhysicsApi::CreateBoxShape(Vector3 extents, Vector3 scaling)
 {
-	return nullptr;
+	return new PhysicsShape();
 }
 
 IPhysicsShape* PhysicsApi::CreateSphereShape(float radius, Vector3 scaling)
 {
-	return nullptr;
+	return new PhysicsShape();
 }
 
 IPhysicsShape* PhysicsApi::CreateCapsuleShape(float radius, float length, int upAxis, Vector3 scaling)
 {
-	return nullptr;
+	return new PhysicsShape();
 }
 
-IPhysicsShape* PhysicsApi::CreateCylinderShape(Vector3 enxtents, Vector3 scaling)
+IPhysicsShape* PhysicsApi::CreateCylinderShape(Vector3 extents, Vector3 scaling)
 {
-	return nullptr;
+	return new PhysicsShape();
 }
 
-IPhysicsShape* PhysicsApi::CreateTriangleShape(Vector3* verteies, int count, Vector3 scaling)
+IPhysicsShape* PhysicsApi::CreateTriangleShape(Vector3* vertices, int count, Vector3 scaling)
 {
-	return nullptr;
+	return new PhysicsShape();
 }
 
 void PhysicsApi::DestoryShape(IPhysicsShape* shape)
@@ -88,17 +88,17 @@ void PhysicsApi::DestoryShape(IPhysicsShape* shape)
 
 IPhysicsActor* PhysicsApi::CreateStaticCollision(IPhysicsShape* shape, Vector3 position, Quaternion rotation)
 {
-	return nullptr;
+	return new PhysicsActor();
 }
 
 IPhysicsActor* PhysicsApi::CreateDynamicCollision(IPhysicsShape* shape, Vector3 position, Quaternion rotation)
 {
-	return nullptr;
+	return new PhysicsActor();
 }
 
 IPhysicsActor* PhysicsApi::CreateActor(IPhysicsShape* shape, Vector3 position, Quaternion rotation)
 {
-	return nullptr;
+	return new PhysicsActor();
 }
 
 void PhysicsApi::DestoryActor(IPhysicsActor* actor)
@@ -108,7 +108,7 @@ void PhysicsApi::DestoryActor(IPhysicsActor* actor)
 
 IPhysicsTrigger* PhysicsApi::CreateTrigger(IPhysicsShape* shape, Vector3 position, Quaternion rotation)
 {
-	return nullptr;
+	return new PhysicsTrigger();
 }
 
 void PhysicsApi::DestoryTrigger(IPhysicsTrigger* trigger)
@@ -118,15 +118,31 @@ void PhysicsApi::DestoryTrigger(IPhysicsTrigger* trigger)
 
 std::vector<IPhysicsActor*> PhysicsApi::Overlap(IPhysicsShape* shape, Vector3 position, Quaternion rotation)
 {
-	return std::vector<IPhysicsActor*>();
+	std::vector<IPhysicsActor*> list;
+	list.push_back(new PhysicsActor());
+	list.push_back(new PhysicsActor());
+	list.push_back(new PhysicsActor());
+	list.push_back(new PhysicsActor());
+	return list;
 }
 
 std::vector<IPhysicsActor*> PhysicsApi::Sweep(IPhysicsShape* shape, Vector3 position, Quaternion rotation)
 {
-	return std::vector<IPhysicsActor*>();
+	std::vector<IPhysicsActor*> list;
+	list.push_back(new PhysicsActor());
+	list.push_back(new PhysicsActor());
+	return list;
 }
 
 bool PhysicsApi::Raycast(Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation)
 {
+	actor = new PhysicsActor();
+	hitPosition.x = 1;
+	hitPosition.y = 2;
+	hitPosition.z = 3;
+	hitRotation.w = 4;
+	hitRotation.x = 5;
+	hitRotation.y = 6;
+	hitRotation.z = 7;
 	return false;
 }

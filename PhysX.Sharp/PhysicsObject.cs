@@ -9,6 +9,8 @@ namespace PhysX.Sharp
         private static Dictionary<uint, PhysicsObject> m_Objects = new Dictionary<uint, PhysicsObject>();
         protected static T Get<T>(uint oid) where T : PhysicsObject
         {
+            if (oid == uint.MaxValue) return null;
+
             if (m_Objects.ContainsKey(oid))
             {
                 var obj = m_Objects[oid];

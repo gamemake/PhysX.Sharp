@@ -5,6 +5,7 @@
 
 #include "PhysicsApi.h"
 #include "PhysicsImpl.h"
+#include "Log.h"
 
 PINVOKE_API unsigned int PhysicsActor_GetCollisionMask(PHYSICS_OID oid)
 {
@@ -103,23 +104,29 @@ PINVOKE_API PHYSICS_OID* PhysicsTrigger_GetActors(PHYSICS_OID oid, int& count)
 
 PINVOKE_API PHYSICS_OID PhysicsApi_New()
 {
+	LogWrite("On PhysicsApi_New");
+
 	auto physics = new PhysicsApi();
 	return physics->GetObjectId();
 }
 
 PINVOKE_API void PhysicsApi_Delete(PHYSICS_OID oid)
 {
+	LogWrite("On PhysicsApi_Delete %d", oid);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return;
 	delete physics;
 }
 
-PINVOKE_API PHYSICS_OID PhysicsApi_CreateBoxShape(PHYSICS_OID oid, Vector3 enxtents, Vector3 scaling)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateBoxShape(PHYSICS_OID oid, Vector3 extents, Vector3 scaling)
 {
+	LogWrite("On PhysicsApi_CreateBoxShape %d, (%f,%f,%f), (%f,%f,%f)", oid, extents.x, extents.y, extents.z, scaling.x, scaling.y, scaling.z);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
 
-	auto shape = physics->CreateBoxShape(enxtents, scaling);
+	auto shape = physics->CreateBoxShape(extents, scaling);
 	if (shape == nullptr) return (PHYSICS_OID)-1;
 
 	return shape->GetObjectId();
@@ -127,6 +134,8 @@ PINVOKE_API PHYSICS_OID PhysicsApi_CreateBoxShape(PHYSICS_OID oid, Vector3 enxte
 
 PINVOKE_API PHYSICS_OID PhysicsApi_CreateSphereShape(PHYSICS_OID oid, float radius, Vector3 scaling)
 {
+	LogWrite("On PhysicsApi_CreateSphereShape %d, %f, (%f,%f,%f)", oid, radius, scaling.x, scaling.y, scaling.z);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
 
@@ -138,6 +147,8 @@ PINVOKE_API PHYSICS_OID PhysicsApi_CreateSphereShape(PHYSICS_OID oid, float radi
 
 PINVOKE_API PHYSICS_OID PhysicsApi_CreateCapsuleShape(PHYSICS_OID oid, float radius, float length, int upAxis, Vector3 scaling)
 {
+	LogWrite("On PhysicsApi_CreateCapsuleShape %d, %f, %f, %d, (%f,%f,%f)", oid, radius, length, upAxis, scaling.x, scaling.y, scaling.z);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
 
@@ -147,12 +158,14 @@ PINVOKE_API PHYSICS_OID PhysicsApi_CreateCapsuleShape(PHYSICS_OID oid, float rad
 	return shape->GetObjectId();
 }
 
-PINVOKE_API PHYSICS_OID PhysicsApi_CreateCylinderShape(PHYSICS_OID oid, Vector3 enxtents, Vector3 scaling)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateCylinderShape(PHYSICS_OID oid, Vector3 extents, Vector3 scaling)
 {
+	LogWrite("On PhysicsApi_CreateCylinderShape %d, (%f,%f,%f), (%f,%f,%f)", oid, extents.x, extents.y, extents.z, scaling.x, scaling.y, scaling.z);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
 
-	auto shape = physics->CreateCylinderShape(enxtents, scaling);
+	auto shape = physics->CreateCylinderShape(extents, scaling);
 	if (shape == nullptr) return (PHYSICS_OID)-1;
 
 	return shape->GetObjectId();
@@ -160,6 +173,8 @@ PINVOKE_API PHYSICS_OID PhysicsApi_CreateCylinderShape(PHYSICS_OID oid, Vector3 
 
 PINVOKE_API PHYSICS_OID PhysicsApi_CreateTriangleShape(PHYSICS_OID oid, Vector3* vertices, int count, Vector3 scaling)
 {
+	LogWrite("On PhysicsApi_CreateCylinderShape %d, (%f,%f,%f)-(%f,%f,%f), %d, (%f,%f,%f)", oid, vertices[0].x, vertices[0].y, vertices[0].z, vertices[count - 1].x, vertices[count - 1].y, vertices[count - 1].z, count, scaling.x, scaling.y, scaling.z);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
 
@@ -171,6 +186,8 @@ PINVOKE_API PHYSICS_OID PhysicsApi_CreateTriangleShape(PHYSICS_OID oid, Vector3*
 
 PINVOKE_API void PhysicsApi_DestoryShape(PHYSICS_OID oid, PHYSICS_OID shape)
 {
+	LogWrite("On PhysicsApi_DestoryShape %d, %d", oid, shape);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return;
 

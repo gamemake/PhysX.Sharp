@@ -6,6 +6,7 @@
 #include "Math.h"
 
 #include "PhysicsApi.h"
+#include "Log.h"
 
 class ObjectTable
 {
@@ -52,9 +53,21 @@ public:
 	IPhysicsObject* Get(unsigned long oid, PHYSICSTYPE type)
 	{
 		auto index = oid & 0xffffff;
-		if (index < m_Count && m_Objects[index] != nullptr)
+		if (index < m_Count)
 		{
-			return m_Objects[index];
+			auto obj = m_Objects[index];
+			if (m_Objects[index] != nullptr)
+			{
+				if (obj->GetType() == type)
+				{
+					return obj;
+				}
+				else
+				{
+					LogWrite("object [%d] type not match, %d %d", oid, obj->GetType(), type);
+					return nullptr;
+				}
+			}
 		}
 		return nullptr;
 	}

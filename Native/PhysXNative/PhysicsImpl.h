@@ -30,11 +30,11 @@ public:
 class PhysicsApi : public IPhysicsApi
 {
 public:
-	virtual IPhysicsShape* CreateBoxShape(Vector3 enxtents, Vector3 scaling);
+	virtual IPhysicsShape* CreateBoxShape(Vector3 extents, Vector3 scaling);
 	virtual IPhysicsShape* CreateSphereShape(float radius, Vector3 scaling);
 	virtual IPhysicsShape* CreateCapsuleShape(float radius, float length, int upAxis, Vector3 scaling);
-	virtual IPhysicsShape* CreateCylinderShape(Vector3 enxtents, Vector3 scaling);
-	virtual IPhysicsShape* CreateTriangleShape(Vector3* verteies, int count, Vector3 scaling);
+	virtual IPhysicsShape* CreateCylinderShape(Vector3 extents, Vector3 scaling);
+	virtual IPhysicsShape* CreateTriangleShape(Vector3* vertices, int count, Vector3 scaling);
 	virtual void DestoryShape(IPhysicsShape* shape);
 
 	virtual IPhysicsActor* CreateStaticCollision(IPhysicsShape* shape, Vector3 position, Quaternion rotation);

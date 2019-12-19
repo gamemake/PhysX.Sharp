@@ -74,11 +74,11 @@ class IPhysicsApi : public IPhysicsObject
 public:
 	IPhysicsApi();
 
-	virtual IPhysicsShape* CreateBoxShape(Vector3 enxtents, Vector3 scaling) = 0;
+	virtual IPhysicsShape* CreateBoxShape(Vector3 extents, Vector3 scaling) = 0;
 	virtual IPhysicsShape* CreateSphereShape(float radius, Vector3 scaling) = 0;
 	virtual IPhysicsShape* CreateCapsuleShape(float radius, float length, int upAxis, Vector3 scaling) = 0;
-	virtual IPhysicsShape* CreateCylinderShape(Vector3 enxtents, Vector3 scaling) = 0;
-	virtual IPhysicsShape* CreateTriangleShape(Vector3* verteies, int count, Vector3 scaling) = 0;
+	virtual IPhysicsShape* CreateCylinderShape(Vector3 extents, Vector3 scaling) = 0;
+	virtual IPhysicsShape* CreateTriangleShape(Vector3* vertices, int count, Vector3 scaling) = 0;
 	virtual void DestoryShape(IPhysicsShape* shape) = 0;
 
 	virtual IPhysicsActor* CreateStaticCollision(IPhysicsShape* shape, Vector3 position, Quaternion rotation) = 0;

@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Log.h" />
     <ClInclude Include="..\Math.h" />
     <ClInclude Include="..\PhysicsApi.h" />
     <ClInclude Include="..\PhysicsDefeine.h" />
     <ClInclude Include="..\PhysicsImpl.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Log.cpp" />
     <ClCompile Include="..\PhysicApi.cpp" />
     <ClCompile Include="..\PhysicImpl.cpp" />
     <ClCompile Include="..\PInvoke.cpp" />
