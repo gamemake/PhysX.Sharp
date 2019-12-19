@@ -324,23 +324,15 @@ PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, unsigned int filter, 
 	static std::vector<PHYSICS_OID> retval;
 	count = 0;
 
-	LogWrite("PhysicsApi_Sweep 1");
-
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return nullptr;
-
-	LogWrite("PhysicsApi_Sweep 1");
 
 	auto _shape = IPhysicsObject::GetShape(shape);
 	if (_shape == nullptr) return nullptr;
 
-	LogWrite("PhysicsApi_Sweep 1");
-
 	auto objects = physics->Sweep(filter, _shape, position, rotation);
 	for (auto i = 0; i < objects.size(); i++)
 	{
-		LogWrite("PhysicsApi_Sweep bb %d", i);
-
 		if (i >= retval.size())
 		{
 			retval.push_back(objects[i]->GetObjectId());
@@ -351,10 +343,7 @@ PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, unsigned int filter, 
 		}
 	}
 
-	LogWrite("PhysicsApi_Sweep 1");
-
 	count = (int)objects.size();
-	LogWrite("PhysicsApi_Sweep return %p %d", &retval[0], count);
 	return &retval[0];
 }
 
