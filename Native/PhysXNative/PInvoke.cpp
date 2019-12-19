@@ -6,77 +6,77 @@
 #include "PhysicsApi.h"
 #include "PhysicsImpl.h"
 
-unsigned int IPhysicsActor_GetCollisionMask(PHYSICS_OID oid)
+PINVOKE_API unsigned int PhysicsActor_GetCollisionMask(PHYSICS_OID oid)
 {
 	auto actor = IPhysicsObject::GetActor(oid);
 	if (actor == nullptr) return 0;
 	return actor->GetCollisionMask();
 }
 
-void IPhysicsActor_SetCollisionMask(PHYSICS_OID oid, unsigned int value)
+PINVOKE_API void PhysicsActor_SetCollisionMask(PHYSICS_OID oid, unsigned int value)
 {
 	auto actor = IPhysicsObject::GetActor(oid);
 	if (actor == nullptr) return;
 	actor->SetCollisionMask(value);
 }
 
-unsigned int IPhysicsActor_GetCollisionFilter(PHYSICS_OID oid)
+PINVOKE_API unsigned int PhysicsActor_GetCollisionFilter(PHYSICS_OID oid)
 {
 	auto actor = IPhysicsObject::GetActor(oid);
 	if (actor == nullptr) return 0;
 	return actor->GetCollisionFilter();
 }
 
-void IPhysicsActor_SetCollisionFilter(PHYSICS_OID oid, unsigned int value)
+PINVOKE_API void PhysicsActor_SetCollisionFilter(PHYSICS_OID oid, unsigned int value)
 {
 	auto actor = IPhysicsObject::GetActor(oid);
 	if (actor == nullptr) return;
 	actor->SetCollisionFilter(value);
 }
 
-Vector3 IPhysicsActor_GetPosition(PHYSICS_OID oid)
+PINVOKE_API Vector3 PhysicsActor_GetPosition(PHYSICS_OID oid)
 {
 	auto actor = IPhysicsObject::GetActor(oid);
 	if (actor == nullptr) return Vector3();
 	return actor->GetPosition();
 }
 
-void IPhysicsActor_SetPosition(PHYSICS_OID oid, Vector3 value)
+PINVOKE_API void PhysicsActor_SetPosition(PHYSICS_OID oid, Vector3 value)
 {
 	auto actor = IPhysicsObject::GetActor(oid);
 	if (actor == nullptr) return;
 	actor->SetPosition(value);
 }
 
-Quaternion IPhysicsActor_GetRotation(PHYSICS_OID oid)
+PINVOKE_API Quaternion PhysicsActor_GetRotation(PHYSICS_OID oid)
 {
 	auto actor = IPhysicsObject::GetActor(oid);
 	if (actor == nullptr) return Quaternion();
 	return actor->GetRotation();
 }
 
-void IPhysicsActor_SetRotation(PHYSICS_OID oid, Quaternion value)
+PINVOKE_API void PhysicsActor_SetRotation(PHYSICS_OID oid, Quaternion value)
 {
 	auto actor = IPhysicsObject::GetActor(oid);
 	if (actor == nullptr) return;
 	actor->SetRotation(value);
 }
 
-Vector3 IPhysicsActor_GetVelocity(PHYSICS_OID oid)
+PINVOKE_API Vector3 PhysicsActor_GetVelocity(PHYSICS_OID oid)
 {
 	auto actor = IPhysicsObject::GetActor(oid);
 	if (actor == nullptr) return Vector3();
 	return actor->GetVelocity();
 }
 
-void IPhysicsActor_SetVelocity(PHYSICS_OID oid, Vector3 value)
+PINVOKE_API void PhysicsActor_SetVelocity(PHYSICS_OID oid, Vector3 value)
 {
 	auto actor = IPhysicsObject::GetActor(oid);
 	if (actor == nullptr) return;
 	actor->SetVelocity(value);
 }
 
-PHYSICS_OID* IPhysicsTrigger_GetActors(PHYSICS_OID oid, int& count)
+PINVOKE_API PHYSICS_OID* PhysicsTrigger_GetActors(PHYSICS_OID oid, int& count)
 {
 	static std::vector<PHYSICS_OID> retval;
 	count = 0;
@@ -101,20 +101,20 @@ PHYSICS_OID* IPhysicsTrigger_GetActors(PHYSICS_OID oid, int& count)
 	return &retval[0];
 }
 
-PINVOKE_API PHYSICS_OID IPhysicsApi_New()
+PINVOKE_API PHYSICS_OID PhysicsApi_New()
 {
 	auto physics = new PhysicsApi();
 	return physics->GetObjectId();
 }
 
-PINVOKE_API void IPhysicsApi_Delete(PHYSICS_OID oid)
+PINVOKE_API void PhysicsApi_Delete(PHYSICS_OID oid)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return;
 	delete physics;
 }
 
-PINVOKE_API PHYSICS_OID IPhysicsApi_CreateBoxShape(PHYSICS_OID oid, Vector3 enxtents, Vector3 scaling)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateBoxShape(PHYSICS_OID oid, Vector3 enxtents, Vector3 scaling)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
@@ -125,7 +125,7 @@ PINVOKE_API PHYSICS_OID IPhysicsApi_CreateBoxShape(PHYSICS_OID oid, Vector3 enxt
 	return shape->GetObjectId();
 }
 
-PINVOKE_API PHYSICS_OID IPhysicsApi_CreateSphereShape(PHYSICS_OID oid, float radius, Vector3 scaling)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateSphereShape(PHYSICS_OID oid, float radius, Vector3 scaling)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
@@ -136,7 +136,7 @@ PINVOKE_API PHYSICS_OID IPhysicsApi_CreateSphereShape(PHYSICS_OID oid, float rad
 	return shape->GetObjectId();
 }
 
-PINVOKE_API PHYSICS_OID IPhysicsApi_CreateCapsuleShape(PHYSICS_OID oid, float radius, float length, int upAxis, Vector3 scaling)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateCapsuleShape(PHYSICS_OID oid, float radius, float length, int upAxis, Vector3 scaling)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
@@ -147,7 +147,7 @@ PINVOKE_API PHYSICS_OID IPhysicsApi_CreateCapsuleShape(PHYSICS_OID oid, float ra
 	return shape->GetObjectId();
 }
 
-PINVOKE_API PHYSICS_OID IPhysicsApi_CreateCylinderShape(PHYSICS_OID oid, Vector3 enxtents, Vector3 scaling)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateCylinderShape(PHYSICS_OID oid, Vector3 enxtents, Vector3 scaling)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
@@ -158,7 +158,7 @@ PINVOKE_API PHYSICS_OID IPhysicsApi_CreateCylinderShape(PHYSICS_OID oid, Vector3
 	return shape->GetObjectId();
 }
 
-PINVOKE_API PHYSICS_OID IPhysicsApi_CreateTriangleShape(PHYSICS_OID oid, Vector3* vertices, int count, Vector3 scaling)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateTriangleShape(PHYSICS_OID oid, Vector3* vertices, int count, Vector3 scaling)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
@@ -169,7 +169,7 @@ PINVOKE_API PHYSICS_OID IPhysicsApi_CreateTriangleShape(PHYSICS_OID oid, Vector3
 	return shape->GetObjectId();
 }
 
-PINVOKE_API void IPhysicsApi_DestoryShape(PHYSICS_OID oid, PHYSICS_OID shape)
+PINVOKE_API void PhysicsApi_DestoryShape(PHYSICS_OID oid, PHYSICS_OID shape)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return;
@@ -180,7 +180,7 @@ PINVOKE_API void IPhysicsApi_DestoryShape(PHYSICS_OID oid, PHYSICS_OID shape)
 	physics->DestoryShape(_shape);
 }
 
-PINVOKE_API PHYSICS_OID IPhysicsApi_CreateStaticCollision(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateStaticCollision(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
@@ -194,7 +194,7 @@ PINVOKE_API PHYSICS_OID IPhysicsApi_CreateStaticCollision(PHYSICS_OID oid, PHYSI
 	return actor->GetObjectId();
 }
 
-PINVOKE_API PHYSICS_OID IPhysicsApi_CreateDynamicCollision(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateDynamicCollision(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
@@ -208,7 +208,7 @@ PINVOKE_API PHYSICS_OID IPhysicsApi_CreateDynamicCollision(PHYSICS_OID oid, PHYS
 	return actor->GetObjectId();
 }
 
-PINVOKE_API PHYSICS_OID IPhysicsApi_CreateActor(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateActor(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
@@ -222,7 +222,7 @@ PINVOKE_API PHYSICS_OID IPhysicsApi_CreateActor(PHYSICS_OID oid, PHYSICS_OID sha
 	return actor->GetObjectId();
 }
 
-PINVOKE_API void IPhysicsApi_DestoryActor(PHYSICS_OID oid, PHYSICS_OID actor)
+PINVOKE_API void PhysicsApi_DestoryActor(PHYSICS_OID oid, PHYSICS_OID actor)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return;
@@ -233,7 +233,7 @@ PINVOKE_API void IPhysicsApi_DestoryActor(PHYSICS_OID oid, PHYSICS_OID actor)
 	physics->DestoryActor(_actor);
 }
 
-PINVOKE_API PHYSICS_OID IPhysicsApi_CreateTrigger(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
+PINVOKE_API PHYSICS_OID PhysicsApi_CreateTrigger(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
@@ -247,7 +247,7 @@ PINVOKE_API PHYSICS_OID IPhysicsApi_CreateTrigger(PHYSICS_OID oid, PHYSICS_OID s
 	return trigger->GetObjectId();
 }
 
-PINVOKE_API void IPhysicsApi_DestoryTrigger(PHYSICS_OID oid, PHYSICS_OID trigger)
+PINVOKE_API void PhysicsApi_DestoryTrigger(PHYSICS_OID oid, PHYSICS_OID trigger)
 {
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return;
@@ -258,7 +258,7 @@ PINVOKE_API void IPhysicsApi_DestoryTrigger(PHYSICS_OID oid, PHYSICS_OID trigger
 	physics->DestoryTrigger(_trigger);
 }
 
-PINVOKE_API PHYSICS_OID* IPhysicsApi_Overlap(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
+PINVOKE_API PHYSICS_OID* PhysicsApi_Overlap(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
 {
 	static std::vector<PHYSICS_OID> retval;
 	count = 0;
@@ -286,7 +286,7 @@ PINVOKE_API PHYSICS_OID* IPhysicsApi_Overlap(PHYSICS_OID oid, PHYSICS_OID shape,
 	return &retval[0];
 }
 
-PINVOKE_API PHYSICS_OID* IPhysicsApi_Sweep(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
+PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
 {
 	static std::vector<PHYSICS_OID> retval;
 	count = 0;
@@ -314,7 +314,7 @@ PINVOKE_API PHYSICS_OID* IPhysicsApi_Sweep(PHYSICS_OID oid, PHYSICS_OID shape, V
 	return &retval[0];
 }
 
-PINVOKE_API bool IPhysicsApi_Raycast(PHYSICS_OID oid, Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation)
+PINVOKE_API bool PhysicsApi_Raycast(PHYSICS_OID oid, Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation)
 {
 	actor = nullptr;
 	hitPosition = Vector3();
