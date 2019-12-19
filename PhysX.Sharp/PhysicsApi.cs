@@ -107,7 +107,7 @@ namespace PhysX.Sharp
         {
             int count;
             var result = PhysicsApi_Sweep(ObjectId, shape.ObjectId, position, rotation, out count);
-            if (result != null)
+            if (count > 0)
             {
                 var array = new int[count];
                 Marshal.Copy(result, array, 0, count);

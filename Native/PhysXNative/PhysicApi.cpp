@@ -43,7 +43,7 @@ public:
 
 	void Unregister(IPhysicsObject* object, PHYSICS_OID oid)
 	{
-		auto index = oid & 0xffffff;
+		auto index = oid & 0xffff;
 		if (index < m_Count && m_Objects[index] == object)
 		{
 			m_Objects[index] = nullptr;
@@ -52,24 +52,27 @@ public:
 
 	IPhysicsObject* Get(unsigned long oid, PHYSICSTYPE type)
 	{
-		auto index = oid & 0xffffff;
-		if (index < m_Count)
+		auto index = oid & 0xffff;
+		if (index >= m_Count)
 		{
-			auto obj = m_Objects[index];
-			if (m_Objects[index] != nullptr)
-			{
-				if (obj->GetType() == type)
-				{
-					return obj;
-				}
-				else
-				{
-					LogWrite("object [%d] type not match, %d %d", oid, obj->GetType(), type);
-					return nullptr;
-				}
-			}
+			LogWrite("object [%d] id out of range", oid);
+			return nullptr;
 		}
-		return nullptr;
+
+		auto obj = m_Objects[index];
+		if (obj == nullptr)
+		{
+			LogWrite("object [%d] not found", oid);
+			return nullptr;
+		}
+
+		if (obj->GetType() != type)
+		{
+			LogWrite("object [%d] type not match, %d %d", oid, obj->GetType(), type);
+			return nullptr;
+		}
+
+		return obj;
 	}
 };
 

@@ -191,7 +191,7 @@ PINVOKE_API void PhysicsApi_DestoryShape(PHYSICS_OID oid, PHYSICS_OID shape)
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return;
 
-	auto _shape = IPhysicsObject::GetShape(oid);
+	auto _shape = IPhysicsObject::GetShape(shape);
 	if (_shape == nullptr) return;
 
 	physics->DestoryShape(_shape);
@@ -199,10 +199,12 @@ PINVOKE_API void PhysicsApi_DestoryShape(PHYSICS_OID oid, PHYSICS_OID shape)
 
 PINVOKE_API PHYSICS_OID PhysicsApi_CreateStaticCollision(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
 {
+	LogWrite("On PhysicsApi_CreateStaticCollision %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, shape, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
 
-	auto _shape = IPhysicsObject::GetShape(oid);
+	auto _shape = IPhysicsObject::GetShape(shape);
 	if (_shape == nullptr) return (PHYSICS_OID)-1;
 
 	auto actor = physics->CreateStaticCollision(_shape, position, rotation);
@@ -213,10 +215,12 @@ PINVOKE_API PHYSICS_OID PhysicsApi_CreateStaticCollision(PHYSICS_OID oid, PHYSIC
 
 PINVOKE_API PHYSICS_OID PhysicsApi_CreateDynamicCollision(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
 {
+	LogWrite("On PhysicsApi_CreateDynamicCollision %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, shape, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
 
-	auto _shape = IPhysicsObject::GetShape(oid);
+	auto _shape = IPhysicsObject::GetShape(shape);
 	if (_shape == nullptr) return (PHYSICS_OID)-1;
 
 	auto actor = physics->CreateDynamicCollision(_shape, position, rotation);
@@ -227,10 +231,12 @@ PINVOKE_API PHYSICS_OID PhysicsApi_CreateDynamicCollision(PHYSICS_OID oid, PHYSI
 
 PINVOKE_API PHYSICS_OID PhysicsApi_CreateActor(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
 {
+	LogWrite("On PhysicsApi_CreateActor %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, shape, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
 
-	auto _shape = IPhysicsObject::GetShape(oid);
+	auto _shape = IPhysicsObject::GetShape(shape);
 	if (_shape == nullptr) return (PHYSICS_OID)-1;
 
 	auto actor = physics->CreateActor(_shape, position, rotation);
@@ -241,10 +247,12 @@ PINVOKE_API PHYSICS_OID PhysicsApi_CreateActor(PHYSICS_OID oid, PHYSICS_OID shap
 
 PINVOKE_API void PhysicsApi_DestoryActor(PHYSICS_OID oid, PHYSICS_OID actor)
 {
+	LogWrite("On PhysicsApi_DestoryActor %d, %d", oid, actor);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return;
 
-	auto _actor = IPhysicsObject::GetActor(oid);
+	auto _actor = IPhysicsObject::GetActor(actor);
 	if (_actor == nullptr) return;
 
 	physics->DestoryActor(_actor);
@@ -252,10 +260,12 @@ PINVOKE_API void PhysicsApi_DestoryActor(PHYSICS_OID oid, PHYSICS_OID actor)
 
 PINVOKE_API PHYSICS_OID PhysicsApi_CreateTrigger(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation)
 {
+	LogWrite("On PhysicsApi_CreateTrigger %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, shape, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return (PHYSICS_OID)-1;
 
-	auto _shape = IPhysicsObject::GetShape(oid);
+	auto _shape = IPhysicsObject::GetShape(shape);
 	if (_shape == nullptr) return (PHYSICS_OID)-1;
 
 	auto trigger = physics->CreateTrigger(_shape, position, rotation);
@@ -266,10 +276,12 @@ PINVOKE_API PHYSICS_OID PhysicsApi_CreateTrigger(PHYSICS_OID oid, PHYSICS_OID sh
 
 PINVOKE_API void PhysicsApi_DestoryTrigger(PHYSICS_OID oid, PHYSICS_OID trigger)
 {
+	LogWrite("On PhysicsApi_DestoryTrigger %d, %d", oid, trigger);
+
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return;
 
-	auto _trigger = IPhysicsObject::GetTrigger(oid);
+	auto _trigger = IPhysicsObject::GetTrigger(trigger);
 	if (_trigger == nullptr) return;
 
 	physics->DestoryTrigger(_trigger);
@@ -277,13 +289,15 @@ PINVOKE_API void PhysicsApi_DestoryTrigger(PHYSICS_OID oid, PHYSICS_OID trigger)
 
 PINVOKE_API PHYSICS_OID* PhysicsApi_Overlap(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
 {
+	LogWrite("On PhysicsApi_Overlap %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, shape, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+
 	static std::vector<PHYSICS_OID> retval;
 	count = 0;
 
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return nullptr;
 
-	auto _shape = IPhysicsObject::GetShape(oid);
+	auto _shape = IPhysicsObject::GetShape(shape);
 	if (_shape == nullptr) return nullptr;
 
 	auto objects = physics->Overlap(_shape, position, rotation);
@@ -305,18 +319,28 @@ PINVOKE_API PHYSICS_OID* PhysicsApi_Overlap(PHYSICS_OID oid, PHYSICS_OID shape, 
 
 PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
 {
+	LogWrite("On PhysicsApi_Sweep %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, shape, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+
 	static std::vector<PHYSICS_OID> retval;
 	count = 0;
+
+	LogWrite("PhysicsApi_Sweep 1");
 
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return nullptr;
 
-	auto _shape = IPhysicsObject::GetShape(oid);
+	LogWrite("PhysicsApi_Sweep 1");
+
+	auto _shape = IPhysicsObject::GetShape(shape);
 	if (_shape == nullptr) return nullptr;
+
+	LogWrite("PhysicsApi_Sweep 1");
 
 	auto objects = physics->Sweep(_shape, position, rotation);
 	for (auto i = 0; i < objects.size(); i++)
 	{
+		LogWrite("PhysicsApi_Sweep bb %d", i);
+
 		if (i >= retval.size())
 		{
 			retval.push_back(objects[i]->GetObjectId());
@@ -327,21 +351,23 @@ PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, PHYSICS_OID shape, Ve
 		}
 	}
 
+	LogWrite("PhysicsApi_Sweep 1");
+
 	count = (int)objects.size();
+	LogWrite("PhysicsApi_Sweep return %p %d", &retval[0], count);
 	return &retval[0];
 }
 
 PINVOKE_API bool PhysicsApi_Raycast(PHYSICS_OID oid, Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation)
 {
+	LogWrite("On PhysicsApi_Raycast %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+
 	actor = nullptr;
 	hitPosition = Vector3();
 	hitRotation = Quaternion();
 
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return false;
-
-	auto _shape = IPhysicsObject::GetShape(oid);
-	if (_shape == nullptr) return false;
 
 	return physics->Raycast(position, rotation, actor, hitPosition, hitRotation);
 }
