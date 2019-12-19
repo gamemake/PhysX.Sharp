@@ -116,7 +116,7 @@ void PhysicsApi::DestoryTrigger(IPhysicsTrigger* trigger)
 	delete trigger;
 }
 
-std::vector<IPhysicsActor*> PhysicsApi::Overlap(IPhysicsShape* shape, Vector3 position, Quaternion rotation)
+std::vector<IPhysicsActor*> PhysicsApi::Overlap(unsigned int filter, IPhysicsShape* shape, Vector3 position, Quaternion rotation)
 {
 	std::vector<IPhysicsActor*> list;
 	list.push_back(new PhysicsActor());
@@ -126,7 +126,7 @@ std::vector<IPhysicsActor*> PhysicsApi::Overlap(IPhysicsShape* shape, Vector3 po
 	return list;
 }
 
-std::vector<IPhysicsActor*> PhysicsApi::Sweep(IPhysicsShape* shape, Vector3 position, Quaternion rotation)
+std::vector<IPhysicsActor*> PhysicsApi::Sweep(unsigned int filter, IPhysicsShape* shape, Vector3 position, Quaternion rotation)
 {
 	std::vector<IPhysicsActor*> list;
 	list.push_back(new PhysicsActor());
@@ -134,7 +134,7 @@ std::vector<IPhysicsActor*> PhysicsApi::Sweep(IPhysicsShape* shape, Vector3 posi
 	return list;
 }
 
-bool PhysicsApi::Raycast(Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation)
+bool PhysicsApi::Raycast(unsigned int filter, Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation)
 {
 	actor = new PhysicsActor();
 	hitPosition.x = 1;

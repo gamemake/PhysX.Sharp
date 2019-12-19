@@ -45,7 +45,7 @@ public:
 	virtual IPhysicsTrigger* CreateTrigger(IPhysicsShape* shape, Vector3 position, Quaternion rotation);
 	virtual void DestoryTrigger(IPhysicsTrigger* trigger);
 
-	virtual std::vector<IPhysicsActor*> Overlap(IPhysicsShape* shape, Vector3 position, Quaternion rotation);
-	virtual std::vector<IPhysicsActor*> Sweep(IPhysicsShape* shape, Vector3 position, Quaternion rotation);
-	virtual bool Raycast(Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation);
+	virtual std::vector<IPhysicsActor*> Overlap(unsigned int filter, IPhysicsShape* shape, Vector3 position, Quaternion rotation);
+	virtual std::vector<IPhysicsActor*> Sweep(unsigned int filter, IPhysicsShape* shape, Vector3 position, Quaternion rotation);
+	virtual bool Raycast(unsigned int filter, Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation);
 };

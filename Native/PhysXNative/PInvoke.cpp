@@ -287,9 +287,9 @@ PINVOKE_API void PhysicsApi_DestoryTrigger(PHYSICS_OID oid, PHYSICS_OID trigger)
 	physics->DestoryTrigger(_trigger);
 }
 
-PINVOKE_API PHYSICS_OID* PhysicsApi_Overlap(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
+PINVOKE_API PHYSICS_OID* PhysicsApi_Overlap(PHYSICS_OID oid, unsigned int filter, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
 {
-	LogWrite("On PhysicsApi_Overlap %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, shape, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+	LogWrite("On PhysicsApi_Overlap %d, %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, filter, shape, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
 
 	static std::vector<PHYSICS_OID> retval;
 	count = 0;
@@ -300,7 +300,7 @@ PINVOKE_API PHYSICS_OID* PhysicsApi_Overlap(PHYSICS_OID oid, PHYSICS_OID shape, 
 	auto _shape = IPhysicsObject::GetShape(shape);
 	if (_shape == nullptr) return nullptr;
 
-	auto objects = physics->Overlap(_shape, position, rotation);
+	auto objects = physics->Overlap(filter, _shape, position, rotation);
 	for (auto i = 0; i < objects.size(); i++)
 	{
 		if (i >= retval.size())
@@ -317,9 +317,9 @@ PINVOKE_API PHYSICS_OID* PhysicsApi_Overlap(PHYSICS_OID oid, PHYSICS_OID shape, 
 	return &retval[0];
 }
 
-PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
+PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, unsigned int filter, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
 {
-	LogWrite("On PhysicsApi_Sweep %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, shape, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+	LogWrite("On PhysicsApi_Sweep %d, %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, filter, shape, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
 
 	static std::vector<PHYSICS_OID> retval;
 	count = 0;
@@ -336,7 +336,7 @@ PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, PHYSICS_OID shape, Ve
 
 	LogWrite("PhysicsApi_Sweep 1");
 
-	auto objects = physics->Sweep(_shape, position, rotation);
+	auto objects = physics->Sweep(filter, _shape, position, rotation);
 	for (auto i = 0; i < objects.size(); i++)
 	{
 		LogWrite("PhysicsApi_Sweep bb %d", i);
@@ -358,9 +358,9 @@ PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, PHYSICS_OID shape, Ve
 	return &retval[0];
 }
 
-PINVOKE_API bool PhysicsApi_Raycast(PHYSICS_OID oid, Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation)
+PINVOKE_API bool PhysicsApi_Raycast(PHYSICS_OID oid, unsigned int filter, Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation)
 {
-	LogWrite("On PhysicsApi_Raycast %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
+	LogWrite("On PhysicsApi_Raycast %d, %d, (%f,%f,%f), (%f, %f,%f,%f)", oid, filter, position.x, position.y, position.z, rotation.w, rotation.x, rotation.y, rotation.z);
 
 	actor = nullptr;
 	hitPosition = Vector3();
@@ -369,5 +369,5 @@ PINVOKE_API bool PhysicsApi_Raycast(PHYSICS_OID oid, Vector3 position, Quaternio
 	auto physics = IPhysicsObject::GetPhysics(oid);
 	if (physics == nullptr) return false;
 
-	return physics->Raycast(position, rotation, actor, hitPosition, hitRotation);
+	return physics->Raycast(filter, position, rotation, actor, hitPosition, hitRotation);
 }

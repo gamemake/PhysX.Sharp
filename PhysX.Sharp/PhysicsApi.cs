@@ -87,10 +87,10 @@ namespace PhysX.Sharp
         {
         }
 
-        public IEnumerable<PhysicsActor> Overlap(PhysicsShape shape, Vector3 position, Quaternion rotation)
+        public IEnumerable<PhysicsActor> Overlap(uint filter, PhysicsShape shape, Vector3 position, Quaternion rotation)
         {
             int count;
-            var result = PhysicsApi_Overlap(ObjectId, shape.ObjectId, position, rotation, out count);
+            var result = PhysicsApi_Overlap(filter, ObjectId, shape.ObjectId, position, rotation, out count);
             if (result != null)
             {
                 var array = new int[count];
@@ -103,10 +103,10 @@ namespace PhysX.Sharp
             }
         }
 
-        public IEnumerable<PhysicsActor> Sweep(PhysicsShape shape, Vector3 position, Quaternion rotation)
+        public IEnumerable<PhysicsActor> Sweep(uint filter, PhysicsShape shape, Vector3 position, Quaternion rotation)
         {
             int count;
-            var result = PhysicsApi_Sweep(ObjectId, shape.ObjectId, position, rotation, out count);
+            var result = PhysicsApi_Sweep(filter, ObjectId, shape.ObjectId, position, rotation, out count);
             if (count > 0)
             {
                 var array = new int[count];
@@ -119,10 +119,10 @@ namespace PhysX.Sharp
             }
         }
 
-        public bool Raycast(Vector3 position, Quaternion rotation, out PhysicsActor actor, out Vector3 hitPosition, out Quaternion hitRotation)
+        public bool Raycast(uint filter, Vector3 position, Quaternion rotation, out PhysicsActor actor, out Vector3 hitPosition, out Quaternion hitRotation)
         {
             uint _actor;
-            var result = PhysicsApi_Raycast(ObjectId, position, rotation, out _actor, out hitPosition, out hitRotation);
+            var result = PhysicsApi_Raycast(filter, ObjectId, position, rotation, out _actor, out hitPosition, out hitRotation);
             actor = Get<PhysicsActor>(_actor);
             return result;
         }
@@ -183,16 +183,16 @@ namespace PhysX.Sharp
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         private static extern void PhysicsApi_DestoryTrigger(uint oid, uint trigger);
 
-        // PINVOKE_API PHYSICS_OID* PhysicsApi_Overlap(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
+        // PINVOKE_API PHYSICS_OID* PhysicsApi_Overlap(PHYSICS_OID oid, unsigned int filter, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        private static extern IntPtr PhysicsApi_Overlap(uint oid, uint shape, Vector3 position, Quaternion rotation, out int count);
+        private static extern IntPtr PhysicsApi_Overlap(uint oid, uint filter, uint shape, Vector3 position, Quaternion rotation, out int count);
 
-        // PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
+        // PINVOKE_API PHYSICS_OID* PhysicsApi_Sweep(PHYSICS_OID oid, unsigned int filter, PHYSICS_OID shape, Vector3 position, Quaternion rotation, int& count)
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        private static extern IntPtr PhysicsApi_Sweep(uint oid, uint shape, Vector3 position, Quaternion rotation, out int count);
+        private static extern IntPtr PhysicsApi_Sweep(uint oid, uint filter, uint shape, Vector3 position, Quaternion rotation, out int count);
 
-        // PINVOKE_API bool PhysicsApi_Raycast(PHYSICS_OID oid, Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation)
+        // PINVOKE_API bool PhysicsApi_Raycast(PHYSICS_OID oid, unsigned int filter, Vector3 position, Quaternion rotation, IPhysicsActor*& actor, Vector3& hitPosition, Quaternion& hitRotation)
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        private static extern bool PhysicsApi_Raycast(uint oid, Vector3 position, Quaternion rotation, out uint actor, out Vector3 hitPosition, out Quaternion hitRotation);
+        private static extern bool PhysicsApi_Raycast(uint oid, uint filter, Vector3 position, Quaternion rotation, out uint actor, out Vector3 hitPosition, out Quaternion hitRotation);
     }
 }
